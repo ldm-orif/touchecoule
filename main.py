@@ -5,26 +5,27 @@
 import pygame,sys
 from pygame.math import Vector2
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT
+from game import GAME
 
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 clock = pygame.time.Clock()
 
-SCREEN_UPDATE = pygame.USEREVENT
-pygame.time.set_timer(SCREEN_UPDATE,150)
+AI_UPDATE = pygame.USEREVENT
+pygame.time.set_timer(AI_UPDATE,1000)
 
-#TODO DECLARE MAIN HERE
+game = GAME()
 
 while True:
     for event in pygame.event.get():
-        if event.type == pygame.QUIT: # TODO LISTEN TO GAME: IF SOMEONE PRESS THE QUIT BUTTON ALSO ACTIVATE THIS
+        if event.type == pygame.QUIT or game.quitting: # Quitting the game (closing the window)
             pygame.quit()
             sys.exit()
-        if event.type == SCREEN_UPDATE:
-            a=1 #TODO HERE TELL GAME TO UPDATE
+        if event.type == AI_UPDATE: # tell game the AI can do another action (rythmed to not be instantaneous)
+            game.ai_act()
         if event.type == pygame.MOUSEBUTTONUP and event.button == 1: # activate on left-click release, to avoid missclicks
-            print("clicked on " + str(event.pos)) #TODO HERE SENT THE event.pos TO GAME TO CHECK COLLIDEPOINTS (pos is [x.y] tuple)
+            game.on_click(event.pos)
 
-    #TODO HERE TELL UI VIA GAME TO DRAW
+    game.draw_everything()
     pygame.display.update()
     clock.tick(60)
