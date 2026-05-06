@@ -2,6 +2,8 @@
 # CREATION : 30.04.2026
 # Contain the constants used about everywhere else in the code
 
+from enum import Enum
+
 # Colors
 
 BLUE = (0,148,255)
