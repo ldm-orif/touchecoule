@@ -3,7 +3,6 @@
 # Contains ship details
 
 from pygame import Vector2
-from enum import Enum
 from constants import ORIENTATION
 
 
