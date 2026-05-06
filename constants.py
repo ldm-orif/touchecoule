@@ -45,5 +45,10 @@ SINKED_COLOR = BLACK
 # multi-domain constants
 
 GRID_SIZE = 10
+SHIP_PER_PLAYER = 5
+
+class ORIENTATION(Enum):
+    HORIZONTAL = False
+    VERTICAL = True
 
 #TODO HERE: SHIP NAMES AND SIZES
