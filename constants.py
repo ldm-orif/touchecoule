@@ -53,4 +53,10 @@ class ORIENTATION(Enum):
     HORIZONTAL = False
     VERTICAL = True
 
+class CASE_STATE(Enum):
+    CLEAN = 0
+    MISS = 1
+    HIT = 1
+    SUNK = 2
+
 #TODO HERE: SHIP NAMES AND SIZES
