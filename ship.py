@@ -27,7 +27,7 @@ class SHIP:
             case _:
                 self.length = 2
                 self.name = "Torpilleur"
-        self.cases_hit = [False for x in self.length]
+        self.cases_hit = [False for x in range(self.length)]
 
     def hit(self,case):
         self.cases_hit[case] = True
