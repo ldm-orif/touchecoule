@@ -11,7 +11,7 @@ class PLAYER:
     def __init__(self):
         self.board = BOARD(GRID_SIZE)
         self.ships = [SHIP(x) for x in range(SHIP_PER_PLAYER)]
-        self.selected_case = Vector2(-1,-1)
+        self.selected_case = Vector2(-1,-1) # indicates where the player aimed on ANY grid, not specifically his own
         self.selected_ship = -1
 
     def nb_ship_unsunk(self):
