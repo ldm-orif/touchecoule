@@ -9,7 +9,7 @@ from enum import Enum
 BLUE = (0,148,255)
 DARK_BLUE = (0,38,255)
 LIGHT_GRAY = (226,222,222)
-GRAY = (130,128,128)
+GRAY = (128,128,128)
 DARK_GRAY = (64,64,64)
 YELLOW = (255,216,0)
 RED = (255,0,0)
@@ -21,6 +21,7 @@ WHITE = (255,255,255)
 SCREEN_WIDTH = 1024 # game windows' width
 SCREEN_HEIGHT = 768 # game windows' height
 CASE_DIMENSION = 40 # width and height of each case in grids
+OUTLINE_THICKNESS = 5 # ships' and selected case outline
 
 #TODO HERE: ADD USUAL TEXT FONT AND SIZE (AND THE IA LOG VARIANT IF IT IS NEEDED)
 
