@@ -14,7 +14,7 @@ clock = pygame.time.Clock()
 AI_UPDATE = pygame.USEREVENT
 pygame.time.set_timer(AI_UPDATE,1000)
 
-game = GAME()
+game = GAME(screen)
 
 while True:
     for event in pygame.event.get():

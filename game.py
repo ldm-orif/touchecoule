@@ -3,6 +3,9 @@
 # contain the logic related to the gameplay
 
 from enum import Enum
+from player import PLAYER
+from ui import UI
+from ai import AI
 
 
 class Gamemode(Enum): # Used to know the current gamemode
@@ -17,7 +20,7 @@ class Stage(Enum): # Used to determine which screen to show
     VICTORY = 4 # End of game screen
     
 class GAME:
-    def __init__(self):
+    def __init__(self, surface):
         self.quitting = False # Used by main.py to know if the user clicked on the "Quit game" button
         self.gamemode = Gamemode.PVP # Used to determine the 2nd opponent's type , defaults to PVP
         self.stage = Stage.TITLE # Current stage/screen of the game
@@ -25,13 +28,21 @@ class GAME:
         self.has_torpedo = False # Indicate if, during the GAME stage, can the current player shoot
         self.is_player_1_turn = True # Indicate if Player 1 is currently playing (True) or Player 2 (False)
 
-        self.player_1 = "TODO" # Player that always start first, always human player #TODO DECLARE CORRECT VALUE
-        self.player_2 = "TODO" # Second player, whose used by the IA in PVC          #TODO DECLARE CORRECT VALUE
-        self.ui = "TODO" # UI of the game, also referred to as "IHM"                 #TODO DECLARE CORRECT VALUE
-        self.ai = "TODO" # Behavior of the Computer player during PVC                #TODO DECLARE CORRECT VALUE
+        self.player_1 = PLAYER() # Player that always start first, always human player
+        self.player_2 = PLAYER() # Second player, whose used by the IA in PVC
+        self.ui = UI(surface) # UI of the game, also referred to as "IHM"
+        self.ai = AI(self.player_2) # Behavior of the Computer player during PVC
         
     def reset(self): # Called to return to title screen after the victory screen
-        a=1 #TODO PUT ALL VALUES BACK TO DEFAULT
+        self.quitting = False # Used by main.py to know if the user clicked on the "Quit game" button
+        self.gamemode = Gamemode.PVP # Used to determine the 2nd opponent's type , defaults to PVP
+        self.stage = Stage.TITLE # Current stage/screen of the game
+        self.turn = 0 # Current turn of the game, 0 is the placement "turn"
+        self.has_torpedo = False # Indicate if, during the GAME stage, can the current player shoot
+        self.is_player_1_turn = True # Indicate if Player 1 is currently playing (True) or Player 2 (False)
+
+        self.player_1 = PLAYER() # Player that always start first, always human player
+        self.player_2 = PLAYER() # Second player, whose used by the IA in PVC
 
     def ai_act(self): # Called to indicate the AI can make the next step (equivalant of a line in it's log)
         a=1 #TODO CALL AI AND TELL IT TO ACT
