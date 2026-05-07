@@ -12,16 +12,16 @@ class SHIP:
         self.orientation = ORIENTATION.HORIZONTAL
         self.sunk = False
         match type:
-            case 1:
+            case 0:
                 self.length = 5
                 self.name = "Porte-avions"
-            case 2:
+            case 1:
                 self.length = 4
                 self.name = "Croiseur"
-            case 3:
+            case 2:
                 self.length = 3
                 self.name = "Contre-Torpilleur"
-            case 4:
+            case 3:
                 self.length = 3
                 self.name = "Sous-marin"
             case _:
