@@ -180,7 +180,7 @@ class UI:
     def draw_grid_states(self, position, cases_state, selected_position): # if selected_position -1;-1 then simply don't draw it
         a=1
 
-    def draw_icon(self, position, icon, dimension_x, dimension_y):
+    def draw_icon(self, icon, position, dimension_x, dimension_y, selected):
         a=1
 
     def draw_text(self, text, position, dimension_x, dimension_y, interatible): # text and buttons
@@ -193,9 +193,6 @@ class UI:
         text_surface = game_font.render(text, True, COLORS.TEXT_COLOR)
         text_rect = text_surface.get_rect(center= ((position.x+(0.5*dimension_x))*CASE_DIMENSION, (position.y+(0.5*dimension_y))*CASE_DIMENSION))
         self.screen.blit(text_surface,text_rect)
-
-    def draw_icon(self, icon, other_arguments_to_be_determined):
-        a=1 #TODO
     
     def draw_logs(self, logs, position, dimension_x, dimension_y): # specific to AI logs
         a=1
