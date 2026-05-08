@@ -99,4 +99,30 @@ class CASE_STATE(Enum):
     HIT = 1
     SUNK = 2
 
+class BUTTONS(Enum):
+    # title
+    TITLE_PVP = 0
+    TITLE_PVC = 1
+    TITLE_QUIT = 2
+
+    # placement
+    PLACEMENT_SELECTION = 3
+    PLACEMENT_DELETION = 4
+    PLACEMENT_ROTATE_LEFT = 5
+    PLACEMENT_ROTATE_RIGHT = 6
+    PLACEMENT_CONTINUE = 7
+
+    # game
+    GAME_LAUNCH = 8
+    GAME_CONTINUE = 9
+
+    # transition
+    TRANSITION_CONTINUE = 10
+
+    # ia
+    IA_CONTINUE = 11
+
+    # victorx
+    VICTORY_CONTINUE = 12
+
 #TODO HERE: SHIP NAMES AND SIZES

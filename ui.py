@@ -4,15 +4,13 @@
 
 # TODO USE THE SCREEN OF THE IA TURN ALSO FOR PLACEMENT TURN !
 
-from constants import CASE_DIMENSION, GRID_SIZE, ORIENTATION, UI_COLORS as COLORS, UI_TEXT as TEXTS
+from constants import CASE_DIMENSION, GRID_SIZE, BUTTONS, ORIENTATION, UI_COLORS as COLORS, UI_TEXT as TEXTS
 import pygame
 from pygame import Vector2
 
-# TODO: ADD ID FOR BUTTON (GLOSSARY) OR MAKE THE LIST CONTAIN TUPLE TO INDICATE WHICH IT IS
-
 class UI:
     def __init__(self, surface):
-        self.current_buttons = [] # TODO DEFINE HOW TO IDENTIFY THE BUTTONS
+        self.current_buttons = [] # single list containing the tuple (rect,button's id)
         self.current_interactible_grid_cases = [[]] # is double list than contains the rect
         self.current_interactible_ships = [] # single list containing the tuple (rect,variant)
         self.screen = surface
@@ -180,6 +178,9 @@ class UI:
         pygame.draw.rect(self.screen,inside_color,ship_inside_rect)
 
     def draw_grid_states(self, position, cases_state, selected_position): # if selected_position -1;-1 then simply don't draw it
+        a=1
+
+    def draw_icon(self, position, icon, dimension_x, dimension_y):
         a=1
 
     def draw_text(self, text, position, dimension_x, dimension_y, interatible): # text and buttons
