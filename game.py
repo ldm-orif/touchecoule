@@ -18,6 +18,10 @@ class Stage(Enum): # Used to determine which screen to show
     GAME = 2 # Game screen, what you see when you think about "touché coulé"
     TRANSITION = 3 # Transition screen, skipped if in PVC
     VICTORY = 4 # End of game screen
+
+class Placement_mode(Enum): # Used to know, during the placement stage of the game, if we wanst to place/select or delete a ship
+    SELECTION = 0 # placement/ship-seletion mode
+    DELETION = 1 # ship deletion mode
     
 class GAME:
     def __init__(self, surface):
@@ -26,6 +30,7 @@ class GAME:
         self.stage = Stage.TITLE # Current stage/screen of the game
         self.turn = 0 # Current turn of the game, 0 is the placement "turn"
         self.has_torpedo = False # Indicate if, during the GAME stage, can the current player shoot
+        self.placement_mode = Placement_mode.SELECTION # function of a click during the placement stage
         self.is_player_1_turn = True # Indicate if Player 1 is currently playing (True) or Player 2 (False)
 
         self.player_1 = PLAYER() # Player that always start first, always human player
