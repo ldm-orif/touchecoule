@@ -26,6 +26,8 @@ OUTLINE_THICKNESS = 5 # ships' and selected case outline
 #TODO HERE: ADD USUAL TEXT FONT AND SIZE (AND THE IA LOG VARIANT IF IT IS NEEDED)
 
 class UI_TEXT:
+    FONT = 'Font/PoetsenOne-Regular.ttf'
+
     # Game screen text
     PLAYER_ROUND_1 = "Tour "
     PLAYER_ROUND_2A = " du joueur 1"

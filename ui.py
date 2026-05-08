@@ -188,7 +188,7 @@ class UI:
             a=1 #TODO: ADD BACKGROUND_RECT AS THE INTERACTIBLE 
         pygame.draw.rect(self.screen,COLORS.GRAPHIC_BACKGROUND_COLOR,background_rect)
 
-        game_font = pygame.font.Font('Font/PoetsenOne-Regular.ttf', 25)
+        game_font = pygame.font.Font(TEXTS.FONT, 25)
         text_surface = game_font.render(text, True, COLORS.TEXT_COLOR)
         text_rect = text_surface.get_rect(center= ((position.x+(0.5*dimension_x))*CASE_DIMENSION, (position.y+(0.5*dimension_y))*CASE_DIMENSION))
         self.screen.blit(text_surface,text_rect)
