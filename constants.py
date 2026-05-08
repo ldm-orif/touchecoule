@@ -41,6 +41,25 @@ class UI_TEXT:
     END_TURN_AVAILABLE = "Terminer le tour"
     END_TURN_UNAVAILABLE = "Veuillez tirer"
 
+class UI_ICONS:
+    FOLDER = 'SVG/'
+
+    # case states
+    CASE_HIT = "case-hit.svg"
+    CASE_MISS = "case-miss.svg"
+    CASE_SELECTED = "case-selected.svg"
+    CASE_SUNK = "case-sunk.svg"
+    
+    # buttons
+    LAUNCH_ON = "launch.svg"
+    LAUNCH_OFF = "no-launch.svg"
+    SELECTION_ON = "selection-active.svg"
+    SELECTION_OFF = "selection.svg"
+    DELETE_ON = "delete-active.svg"
+    DELETE_OFF = "delete.svg"
+    ROTATE_LEFT = "rotate-left.svg"
+    ROTATE_RIGHT = "rotate-right.svg"
+
 
 class UI_COLORS:
     BACKGROUND_COLOR = GRAY
