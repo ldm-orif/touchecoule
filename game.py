@@ -93,6 +93,8 @@ class GAME:
                         self.launch_missile()
                     case BUTTONS.GAME_CONTINUE:
                         self.player_end_their_turn()
+                    case BUTTONS.AI_CONTINUE:
+                        self.player_end_their_turn()
             case Stage.TRANSITION: # the transition stage only has one possible button, thus no need to check the btn_id
                 self.pass_transition()
             case Stage.VICTORY: # the victory stage only has one possible button, thus no need to check the btn_id
