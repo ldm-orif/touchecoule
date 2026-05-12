@@ -96,8 +96,12 @@ class ORIENTATION(Enum):
 class CASE_STATE(Enum):
     CLEAN = 0
     MISS = 1
-    HIT = 1
-    SUNK = 2
+    HIT = 2
+    SUNK = 3
+
+class GAMEMODE(Enum): # Used to know the current gamemode
+    PVP = 1 # Player versus Player
+    PVC = 2 # Player versus Computer
 
 class BUTTONS(Enum):
     # title
@@ -119,10 +123,10 @@ class BUTTONS(Enum):
     # transition
     TRANSITION_CONTINUE = 10
 
-    # ia
-    IA_CONTINUE = 11
+    # ai
+    AI_CONTINUE = 11
 
-    # victorx
+    # victory
     VICTORY_CONTINUE = 12
 
 #TODO HERE: SHIP NAMES AND SIZES

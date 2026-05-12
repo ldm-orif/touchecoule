@@ -7,11 +7,7 @@ from pygame import Vector2
 from player import PLAYER
 from ui import UI
 from ai import AI
-from constants import BUTTONS
-
-class Gamemode(Enum): # Used to know the current gamemode
-    PVP = 1 # Player versus Player
-    PVC = 2 # Player versus Computer
+from constants import BUTTONS, GAMEMODE, CASE_STATE #TODO REMOVE CASE_STATE SINCE IT'S ONLY USED FOR TESTING
 
 class Stage(Enum): # Used to determine which screen to show
     TITLE = 0 # Title screen
@@ -27,7 +23,7 @@ class Placement_mode(Enum): # Used to know, during the placement stage of the ga
 class GAME:
     def __init__(self, surface):
         self.quitting = False # Used by main.py to know if the user clicked on the "Quit game" button
-        self.gamemode = Gamemode.PVP # Used to determine the 2nd opponent's type , defaults to PVP
+        self.gamemode = GAMEMODE.PVP # Used to determine the 2nd opponent's type , defaults to PVP
         self.stage = Stage.TITLE # Current stage/screen of the game
         self.turn = 0 # Current turn of the game, 0 is the placement "turn"
         self.has_torpedo = False # Indicate if, during the GAME stage, can the current player shoot
@@ -123,11 +119,11 @@ class GAME:
 
     def start_pvp_match(self):
         self.stage = Stage.PLACEMENT
-        self.gamemode = Gamemode.PVP
+        self.gamemode = GAMEMODE.PVP
 
     def start_pvc_match(self):
         self.stage = Stage.PLACEMENT
-        self.gamemode = Gamemode.PVC
+        self.gamemode = GAMEMODE.PVC
 
     def end_game(self):
         self.quit_game = True
@@ -148,7 +144,7 @@ class GAME:
         if self.are_all_ships_placed(concerned_player.ships):
             if self.is_player_1_turn:
                 self.is_player_1_turn = False
-                if self.gamemode == Gamemode.PVC:
+                if self.gamemode == GAMEMODE.PVC:
                     a=1 #TODO: MAKE AI ACT HERE
             else:
                 self.player_end_their_turn()
@@ -178,7 +174,7 @@ class GAME:
             if self.player_1.nb_ship_unsunk() <= 0 or self.player_2.nb_ship_unsunk() <= 0: # check if a player has won
                 self.stage = Stage.VICTORY
             else:
-                if self.gamemode == Gamemode.PVP:
+                if self.gamemode == GAMEMODE.PVP:
                     self.stage = Stage.TRANSITION
                 else : 
                     self.stage = Stage.GAME
@@ -196,7 +192,7 @@ class GAME:
 
     def end_match(self): # Called to return to title screen after the victory screen
         self.quitting = False
-        self.gamemode = Gamemode.PVP
+        self.gamemode = GAMEMODE.PVP
         self.stage = Stage.TITLE
         self.turn = 0
         self.has_torpedo = False
