@@ -22,6 +22,7 @@ GREEN = (182,255,0)
 SCREEN_WIDTH = 1024 # game windows' width
 SCREEN_HEIGHT = 768 # game windows' height
 CASE_DIMENSION = 40 # width and height of each case in grids
+ICON_DIMENSION = 2*CASE_DIMENSION # width and height of icons
 OUTLINE_THICKNESS = 5 # ships' and selected case outline
 
 #TODO HERE: ADD USUAL TEXT FONT AND SIZE (AND THE IA LOG VARIANT IF IT IS NEEDED)
@@ -131,7 +132,7 @@ class UI_COLORS:
 
 GRID_SIZE = 10
 SHIP_PER_PLAYER = 5
-IA_LOG_LINE_LIMIT = 20
+IA_LOG_LINE_LIMIT = 10
 IA_LOG_CHARACTER_PER_LINE_LIMIT = 50
 
 class ORIENTATION(Enum):
