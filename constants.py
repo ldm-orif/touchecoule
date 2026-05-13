@@ -15,6 +15,7 @@ YELLOW = (255,216,0)
 RED = (255,0,0)
 BLACK = (0,0,0)
 WHITE = (255,255,255)
+GREEN = (182,255,0)
 
 # UI specific constants
 
@@ -28,18 +29,56 @@ OUTLINE_THICKNESS = 5 # ships' and selected case outline
 class UI_TEXT:
     FONT = 'Font/PoetsenOne-Regular.ttf'
 
+    # Title screen text
+    TITLE_PART_1 = "BATAILLE"
+    TITLE_PART_2 = "NAVALLE"
+    TITLE_PVP_1 = "JOUEUR"
+    TITLE_PVP_2 = "CONTRE"
+    TITLE_PVP_3 = "JOUEUR"
+    TITLE_PVC_1 = "JOUEUR"
+    TITLE_PVC_2 = "CONTRE"
+    TITLE_PVC_3 = "MACHINE"
+    TITLE_QUIT = "QUITTER"
+
+    # Placement screen text
+    PLACEMENT_INFO = "Posez les bateaux pour continuer"
+    PLACEMENT_PLAYER_A = "Joueur 1"
+    PLACEMENT_PLAYER_B = "Joueur 2"
+
     # Game screen text
-    PLAYER_ROUND_1 = "Tour "
-    PLAYER_ROUND_2A = " du joueur 1"
-    PLAYER_ROUND_2B = " du joueur 2"
-    PLAYER_TERRAIN = "Votre terrain"
-    OPPONENT_TERRAIN = "Terrain ennemie"
-    OPPONENT_SHIPS_LEFT = "Navires ennemie restant : "
-    SHOT_INFO_CAN_SHOOT = "Vous pouvez tirer"
-    SHOT_INFO_CANNOT_SHOOT = "Vous ne pouvez plus tirer"
-    SHOT_INFO_WON = "Aucun bateau ennemie restant"
-    END_TURN_AVAILABLE = "Terminer le tour"
-    END_TURN_UNAVAILABLE = "Veuillez tirer"
+    GAME_PLAYER_ROUND_1 = "Tour "
+    GAME_PLAYER_ROUND_2A = " du joueur 1"
+    GAME_PLAYER_ROUND_2B = " du joueur 2"
+    GAME_PLAYER_TERRAIN = "Votre terrain"
+    GAME_OPPONENT_TERRAIN = "Terrain ennemie"
+    GAME_OPPONENT_SHIPS_LEFT = "Navires ennemie restant : "
+    GAME_SHOT_INFO_CAN_SHOOT = "Vous pouvez tirer"
+    GAME_SHOT_INFO_CANNOT_SHOOT = "Vous ne pouvez plus tirer"
+    GAME_SHOT_INFO_WON = "Aucun bateau ennemie restant"
+    GAME_END_TURN_AVAILABLE = "Terminer le tour"
+    GAME_END_TURN_UNAVAILABLE = "Veuillez tirer"
+
+    # Transition screen text
+    TRANSITION_PASS_KEYBOARD_TO = "PASSEZ LE CLAVIER AU "
+    TRANSITION_CONTINUE = "JE SUIS "
+    TRANSITION_PLAYER_A = "JOUEUR 1"
+    TRANSITION_PLAYER_B = "JOUEUR 2"
+
+    # AI screen text
+    AI_ROUND_1 = "Tour "
+    AI_ROUND_2 = " de l'IA"
+    AI_PLAYER_TERRAIN = "Votre terrain"
+    AI_LOGS_HEADER = "Actions de l'IA"
+    AI_CONTINUE = "Continuer"
+    AI_WAIT = "Attendez"
+
+    # End screen text
+    VICTORY_WINNER = "Victoire "
+    VICTORY_TERRAIN_OF = "Terrain "
+    VICTORY_PLAYER_A = "du joueur 1"
+    VICTORY_PLAYER_B = "du joueur 2"
+    VICTORY_AI = "de l'IA"
+    VICTORY_CONTINUE = "Continuer"
 
 class UI_ICONS:
     FOLDER = 'SVG/'
@@ -59,10 +98,13 @@ class UI_ICONS:
     DELETE_OFF = "delete.svg"
     ROTATE_LEFT = "rotate-left.svg"
     ROTATE_RIGHT = "rotate-right.svg"
+    CONFIRM_ON = "confirmation-active.svg"
+    CONFIRM_OFF = "confirmation.svg"
 
 
 class UI_COLORS:
     BACKGROUND_COLOR = GRAY
+    TITLE_COLOR = GREEN
 
     OCEAN_COLOR_PRIMARY = BLUE
     OCEAN_COLOR_SECONDARY = DARK_BLUE
@@ -81,6 +123,9 @@ class UI_COLORS:
     MISS_COLOR = WHITE
     HIT_COLOR = RED
     SINKED_COLOR = BLACK
+
+    AI_LOGS_TEXT_COLOR = BLACK
+    AI_LOGS_BACKGROUND_COLOR = LIGHT_GRAY
 
 # multi-domain constants
 
@@ -128,5 +173,15 @@ class BUTTONS(Enum):
 
     # victory
     VICTORY_CONTINUE = 12
+
+class AI_LOGS_TEXT(Enum):
+    START = "LOGS DES TIRS DE L'IA"
+    AIM = "L'IA TIRE SUR LA CASE"
+    HIT = "TOUCHÉ !"
+    MISS = "LOUPÉ !"
+    SINK_1 = "COULÉ ! IL VOUS RESTE "
+    SINK_2 = " BATEAUX"
+    END_1 = "L'IA A TERMIN´3 SON TOUR,"
+    END_2 = "APPUYEZ SUR 'CONTINUER'"
 
 #TODO HERE: SHIP NAMES AND SIZES
