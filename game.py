@@ -7,7 +7,7 @@ from pygame import Vector2
 from player import PLAYER
 from ui import UI
 from ai import AI
-from constants import BUTTONS, GAMEMODE, CASE_STATE #TODO REMOVE CASE_STATE SINCE IT'S ONLY USED FOR TESTING
+from constants import BUTTONS, GAMEMODE, PLACEMENT_MODE
 
 class Stage(Enum): # Used to determine which screen to show
     TITLE = 0 # Title screen
@@ -16,9 +16,7 @@ class Stage(Enum): # Used to determine which screen to show
     TRANSITION = 3 # Transition screen, skipped if in PVC
     VICTORY = 4 # End of game screen
 
-class Placement_mode(Enum): # Used to know, during the placement stage of the game, if we wanst to place/select or delete a ship
-    SELECTION = 0 # placement/ship-seletion mode
-    DELETION = 1 # ship deletion mode
+
     
 class GAME:
     def __init__(self, surface):
@@ -27,7 +25,7 @@ class GAME:
         self.stage = Stage.TITLE # Current stage/screen of the game
         self.turn = 0 # Current turn of the game, 0 is the placement "turn"
         self.has_torpedo = False # Indicate if, during the GAME stage, can the current player shoot
-        self.placement_mode = Placement_mode.SELECTION # function of a click during the placement stage
+        self.placement_mode = PLACEMENT_MODE.SELECTION # function of a click during the placement stage
         self.is_player_1_turn = True # Indicate if Player 1 is currently playing (True) or Player 2 (False)
 
         self.player_1 = PLAYER() # Player that always start first, always human player
@@ -102,9 +100,9 @@ class GAME:
 
     def handle_clicked_ship(self, variant): # since there is only one stage where ships are interactible, no need to check which stage we are in
         match self.placement_mode:
-            case Placement_mode.SELECTION: 
+            case PLACEMENT_MODE.SELECTION: 
                 self.select_ship(variant)
-            case Placement_mode.DELETION:
+            case PLACEMENT_MODE.DELETION:
                 self.delete_ship(variant)
 
     def handle_clicked_case(self, row, col):
@@ -131,8 +129,8 @@ class GAME:
         self.quit_game = True
 
     def set_placement_mode(self, is_deletion):
-        if is_deletion: self.placement_mode = Placement_mode.DELETION
-        else: self.placement_mode = Placement_mode.SELECTION
+        if is_deletion: self.placement_mode = PLACEMENT_MODE.DELETION
+        else: self.placement_mode = PLACEMENT_MODE.SELECTION
 
     def rotate_ship(self, to_the_right):
         concerned_player = self.player_2
@@ -198,7 +196,7 @@ class GAME:
         self.stage = Stage.TITLE
         self.turn = 0
         self.has_torpedo = False
-        self.placement_mode = Placement_mode.NONE
+        self.placement_mode = PLACEMENT_MODE.SELECTION
         self.is_player_1_turn = True
 
         self.player_1 = PLAYER() # Player that always start first, always human player

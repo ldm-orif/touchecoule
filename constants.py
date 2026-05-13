@@ -149,6 +149,10 @@ class GAMEMODE(Enum): # Used to know the current gamemode
     PVP = 1 # Player versus Player
     PVC = 2 # Player versus Computer
 
+class PLACEMENT_MODE(Enum): # Used to know, during the placement stage of the game, if we wanst to place/select or delete a ship
+    SELECTION = 0 # placement/ship-seletion mode
+    DELETION = 1 # ship deletion mode
+
 class BUTTONS(Enum):
     # title
     TITLE_PVP = 0
