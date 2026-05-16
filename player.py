@@ -51,10 +51,27 @@ class PLAYER:
         self.selected_ship = variant
 
     def place(self, case): # try to place selected ship at indicated case without causing a collision
-        a=1 #TODO CHECK FOR COLLISIONS
+        old_position = self.ships[self.selected_ship].position
+        self.ships[self.selected_ship].position = case
+        if self.collides():
+            self.ships[self.selected_ship].position = old_position
+            return False
+        return True
 
     def rotate(self, to_the_right): # try to rotate selected ship without causing a collision, can freely rotate unplaced ships
-        a=1 #TODO CHECK FOR COLLISIONS
+        if to_the_right and self.ships[self.selected_ship].orientation == ORIENTATION.HORIZONTAL:
+            self.ships[self.selected_ship].orientation = ORIENTATION.VERTICAL
+            if self.collides() and not (self.ships[self.selected_ship].position.x < 0 and self.ships[self.selected_ship].position.y < 0):
+                self.ships[self.selected_ship].orientation = ORIENTATION.HORIZONTAL
+                return False
+            return True
+        elif not to_the_right and self.ships[self.selected_ship].orientation == ORIENTATION.VERTICAL:
+            self.ships[self.selected_ship].orientation = ORIENTATION.HORIZONTAL
+            if self.collides() and not (self.ships[self.selected_ship].position.x < 0 and self.ships[self.selected_ship].position.y < 0):
+                self.ships[self.selected_ship].orientation = ORIENTATION.VERTICAL
+                return False
+            return True
+
 
     def remove(self, variant):
         a=1 #TODO
