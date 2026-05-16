@@ -160,20 +160,22 @@ class GAME:
 
     def launch_missile(self): # returns true if another shot is possible by the player (info needed by the AI class)
         concerned_player = self.player_2
-        if self.is_player_1_turn: concerned_player = self.player_1
+        opponent = self.player_1
+        if self.is_player_1_turn:
+            concerned_player = self.player_1
+            opponent = self.player_2
 
-        if concerned_player.aim(concerned_player.selected_case): # check that we have a valid target
-            if concerned_player.launch(): # check if any ship has been hit
+        if self.has_torpedo: # check that we have a valid target
+            if concerned_player.launch(concerned_player.selected_case, opponent): # check if any ship has been hit
                 return True
             else:
                 self.has_torpedo = False
                 return False
 
     def player_end_their_turn(self):
-        if self.has_torpedo == False:
             if self.player_1.nb_ship_unsunk() <= 0 or self.player_2.nb_ship_unsunk() <= 0: # check if a player has won
                 self.stage = Stage.VICTORY
-            else:
+            elif self.has_torpedo is False:
                 if self.gamemode == GAMEMODE.PVP:
                     self.stage = Stage.TRANSITION
                 else : 
@@ -220,22 +222,42 @@ class GAME:
     # case actions
 
     def place_ship(self, row, col):
-        concerned_player = self.player_2
-        if self.is_player_1_turn: concerned_player = self.player_1
-        concerned_player.place(Vector2(row,col))
+        if self.placement_mode == PLACEMENT_MODE.SELECTION:
+            concerned_player = self.player_2
+            if self.is_player_1_turn: concerned_player = self.player_1
+            concerned_player.place(Vector2(col,row))
     
     def aim_at_opponent(self, row, col):
         concerned_player = self.player_2
-        if self.is_player_1_turn: concerned_player = self.player_1
-        return concerned_player.aim(Vector2(row,col)) # return True if we have a valid target
+        opponent = self.player_1
+        if self.is_player_1_turn: 
+            concerned_player = self.player_1
+            opponent = self.player_2
+        return concerned_player.aim(Vector2(col,row), opponent) # return True if we have a valid target
 
 
     # UI
 
     def draw_everything(self): # Called to ask UI to draw the visuals
-        a=1 #TODO ASK UI TO DRAW A CERTAIN SCREEN, PASSSING ONLY RELEVANT INFORMATION THAT CAN INCLUDE GAMEMODE, TURN, HAS_TORPEDO, ETC.
-
-    
-    
-
-# MISSING : GAMEMODE CHANGE | PLAY ORDER TRACKING | STAGE CHANGE | TURN CHANGE
+        match self.stage:
+            case Stage.TITLE:
+                self.ui.draw_title()
+            case Stage.PLACEMENT:
+                current_player = self.player_2
+                if self.is_player_1_turn: current_player = self.player_1
+                if self.gamemode == GAMEMODE.PVP:
+                    self.ui.draw_placement(self.is_player_1_turn, current_player, self.placement_mode)
+            case Stage.GAME:
+                current_player = self.player_2
+                opponent_player = self.player_1
+                if self.is_player_1_turn:
+                    current_player = self.player_1
+                    opponent_player = self.player_2
+                if self.gamemode == GAMEMODE.PVC and not self.is_player_1_turn:
+                    self.ui.draw_ai(self.turn,current_player,self.ai)
+                else:
+                    self.ui.draw_game(self.is_player_1_turn,self.turn,self.has_torpedo,current_player,opponent_player)
+            case Stage.TRANSITION:
+                self.ui.draw_transition(not self.is_player_1_turn)
+            case Stage.VICTORY:
+                self.ui.draw_victory(self.player_1,self.player_2,self.gamemode)

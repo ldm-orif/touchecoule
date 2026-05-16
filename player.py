@@ -21,31 +21,40 @@ class PLAYER:
                 nb_unsunk += 1
         return nb_unsunk
     
-    def launch(self): # return True if a ship is hit, return False if not
-        for ship in self.ships:
+    def launch(self, selected_case, opponent): # return True if a ship is hit, return False if not
+        for ship in opponent.ships:
             if ship.orientation == ORIENTATION.HORIZONTAL:
-                if self.selected_case.y == ship.position.y:
+                if selected_case.y == ship.position.y:
                     for i in range(ship.length):
-                        if self.selected_case.x == ship.position.x +i:
-                            ship.hit(self.selected_case)
+                        if selected_case.x == ship.position.x +i:
+                            ship.hit(i)
+                            opponent.board.hit(selected_case)
                             if ship.sunk:
-                                self.board.sink(ship.position, ship.length, ship.orientation)
-                            self.selected_case = Vector2(-1,-1)
+                                opponent.board.sink(ship.position, ship.length, ship.orientation)
+                            selected_case = Vector2(-1,-1)
                             return True
             if ship.orientation == ORIENTATION.VERTICAL:
-                if self.selected_case.x == ship.position.x:
+                if selected_case.x == ship.position.x:
                     for i in range(ship.length):
-                        if self.selected_case.y == ship.position.y +i:
-                            ship.hit(self.selected_case)
+                        if selected_case.y == ship.position.y +i:
+                            ship.hit(i)
+                            opponent.board.hit(selected_case)
                             if ship.sunk:
-                                self.board.sink(ship.position, ship.length, ship.orientation)
-                            self.selected_case = Vector2(-1,-1)
+                                opponent.board.sink(ship.position, ship.length, ship.orientation)
+                            selected_case = Vector2(-1,-1)
                             return True
-        self.board.miss(self.selected_case)
+        opponent.board.miss(selected_case)
+        selected_case = Vector2(-1,-1)
         return False
     
-    def aim(self, case): # change selected case, return True if case is a valid target (inside grid, position never launched at), False otherwise
-        self.selected_case = case
+    def aim(self, case, opponent): # change selected case, return True if case is a valid target (inside grid, position never launched at), False otherwise
+        valid_case = False
+        if case.x < GRID_SIZE and case.x >= 0 and case.y < GRID_SIZE and case.y >= 0:
+            if opponent.board.grid[int(case.x)][int(case.y)] == CASE_STATE.CLEAN:
+                valid_case = True
+                self.selected_case = case
+        return valid_case
+
 
     def select(self, variant):
         self.selected_ship = variant
@@ -74,7 +83,8 @@ class PLAYER:
 
 
     def remove(self, variant):
-        a=1 #TODO
+        self.ships[variant].position = Vector2(-1,-1)
+        self.ships[variant].orientation = ORIENTATION.HORIZONTAL
 
     def collides(self): # check if selected_ship ship collides with other ships
         ship_cases = self.ships[self.selected_ship].get_occupied_cases()
