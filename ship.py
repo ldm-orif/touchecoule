@@ -33,3 +33,13 @@ class SHIP:
         self.cases_hit[case] = True
         if False not in self.cases_hit:
             self.sunk = True
+
+    # return cases the ship occupies
+    def get_occupied_cases(self):
+        occupied_cases = []
+        for i in range(self.length):
+            if self.orientation == ORIENTATION.HORIZONTAL:
+                occupied_cases.append(Vector2(self.position.x+i,self.position.y))
+            else:
+                occupied_cases.append(Vector2(self.position.x,self.position.y+i))
+        return occupied_cases

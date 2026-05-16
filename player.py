@@ -60,4 +60,20 @@ class PLAYER:
         a=1 #TODO
 
     def collides(self): # check if selected_ship ship collides with other ships
-        a=1 #TODO
+        ship_cases = self.ships[self.selected_ship].get_occupied_cases()
+
+        #check each concerned case
+        collides = False
+
+        for my_case in ship_cases:
+            if collides: break
+            collides = my_case.x >= GRID_SIZE or my_case.y >= GRID_SIZE or my_case.x < 0 or my_case.y < 0
+        for ship in self.ships:
+            if ship.name == self.ships[self.selected_ship].name: continue
+            if collides: break
+            for case in ship.get_occupied_cases():
+                if collides: break
+                for our_case in ship_cases:
+                    if collides: break
+                    collides = case.x == our_case.x and case.y == our_case.y
+        return collides
