@@ -42,7 +42,7 @@ class UI_TEXT:
     TITLE_QUIT = "QUITTER"
 
     # Placement screen text
-    PLACEMENT_INFO = "Posez les bateaux pour continuer"
+    PLACEMENT_INFO = "Posez tous les bateaux pour continuer"
     PLACEMENT_PLAYER_A = "Joueur 1"
     PLACEMENT_PLAYER_B = "Joueur 2"
 
@@ -74,7 +74,8 @@ class UI_TEXT:
     AI_WAIT = "Attendez"
 
     # End screen text
-    VICTORY_WINNER = "Victoire "
+    VICTORY_WINNER_1 = "Victoire "
+    VICTORY_WINNER_2 = " !"
     VICTORY_TERRAIN_OF = "Terrain "
     VICTORY_PLAYER_A = "du joueur 1"
     VICTORY_PLAYER_B = "du joueur 2"
@@ -106,6 +107,7 @@ class UI_ICONS:
 class UI_COLORS:
     BACKGROUND_COLOR = GRAY
     TITLE_COLOR = GREEN
+    TITLE_BUTTON_COLOR = GRAY
 
     OCEAN_COLOR_PRIMARY = BLUE
     OCEAN_COLOR_SECONDARY = DARK_BLUE
@@ -188,5 +190,3 @@ class AI_LOGS_TEXT(Enum):
     SINK_2 = " BATEAUX"
     END_1 = "L'IA A TERMIN´3 SON TOUR,"
     END_2 = "APPUYEZ SUR 'CONTINUER'"
-
-#TODO HERE: SHIP NAMES AND SIZES
