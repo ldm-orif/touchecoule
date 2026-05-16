@@ -20,7 +20,7 @@ class Stage(Enum): # Used to determine which screen to show
     
 class GAME:
     def __init__(self, surface):
-        self.quitting = False # Used by main.py to know if the user clicked on the "Quit game" button
+        self.quit = False # Used by main.py to know if the user clicked on the "Quit game" button
         self.gamemode = GAMEMODE.PVP # Used to determine the 2nd opponent's type , defaults to PVP
         self.stage = Stage.TITLE # Current stage/screen of the game
         self.turn = 0 # Current turn of the game, 0 is the placement "turn"
@@ -126,7 +126,7 @@ class GAME:
         self.gamemode = GAMEMODE.PVC
 
     def end_game(self):
-        self.quit_game = True
+        self.quit = True
 
     def set_placement_mode(self, is_deletion):
         if is_deletion: self.placement_mode = PLACEMENT_MODE.DELETION
@@ -193,7 +193,6 @@ class GAME:
         self.stage = Stage.GAME
 
     def end_match(self): # Called to return to title screen after the victory screen
-        self.quitting = False
         self.gamemode = GAMEMODE.PVP
         self.stage = Stage.TITLE
         self.turn = 0
