@@ -34,7 +34,8 @@ class GAME:
         self.ai = AI(self.player_2,self) # Behavior of the Computer player during PVC
 
     def ai_act(self): # Called to indicate the AI can make the next step (equivalant of a line in it's log)
-        a=1 #TODO CALL AI AND TELL IT TO ACT
+        if self.gamemode == GAMEMODE.PVC and not self.is_player_1_turn:
+            self.ai.turn_behavior(self.has_torpedo, self.player_1)
 
     def on_click(self, pos):
         match_found = False # used as multi-loop break
@@ -145,11 +146,12 @@ class GAME:
             if self.is_player_1_turn:
                 self.is_player_1_turn = False
                 if self.gamemode == GAMEMODE.PVC:
-                    a=1 #TODO: MAKE AI ACT HERE
+                    self.ai.placement_behavior()
+                    self.player_end_their_turn()
             else:
                 self.player_end_their_turn()
 
-    def are_all_ships_placed(self, ships): #TODO: PASS THE RESULT OF THIS METHOD TO THE UI FOR THE PLACEMENT SCREEN
+    def are_all_ships_placed(self, ships):
         all_ships_placed = True
 
         for ship in ships:
@@ -183,6 +185,7 @@ class GAME:
 
                 if self.is_player_1_turn:
                     self.is_player_1_turn = False # pass to player 2
+                    if self.gamemode == GAMEMODE.PVC: self.ai.turn_finished = False
                 else: 
                     self.is_player_1_turn = True # pass to player 1
                     self.turn +=1 # pass to next turn
@@ -245,8 +248,7 @@ class GAME:
             case Stage.PLACEMENT:
                 current_player = self.player_2
                 if self.is_player_1_turn: current_player = self.player_1
-                if self.gamemode == GAMEMODE.PVP:
-                    self.ui.draw_placement(self.is_player_1_turn, current_player, self.placement_mode)
+                self.ui.draw_placement(self.is_player_1_turn, current_player, self.placement_mode)
             case Stage.GAME:
                 current_player = self.player_2
                 opponent_player = self.player_1
@@ -254,7 +256,7 @@ class GAME:
                     current_player = self.player_1
                     opponent_player = self.player_2
                 if self.gamemode == GAMEMODE.PVC and not self.is_player_1_turn:
-                    self.ui.draw_ai(self.turn,current_player,self.ai)
+                    self.ui.draw_ai(self.turn,self.player_1,self.ai)
                 else:
                     self.ui.draw_game(self.is_player_1_turn,self.turn,self.has_torpedo,current_player,opponent_player)
             case Stage.TRANSITION:
