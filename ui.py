@@ -41,7 +41,7 @@ class UI:
         # ship
         ship_vertical_position = 2
         ship_width = 5
-        ship_height = 15
+        ship_height = 16
         self.draw_title_ship(ship_vertical_position,ship_width,ship_height)
         
         # buttons
@@ -155,8 +155,8 @@ class UI:
 
 
         # cases' state
-        self.draw_grid_states(player_grid_position, player.board.grid, Vector2(-1,-1)) # where player launched
-        self.draw_grid_states(opponent_grid_position, opponent.board.grid, player.selected_case) # where opponent launched
+        self.draw_grid_states(player_grid_position, player.board.grid, Vector2(-1,-1)) # where player got hit
+        self.draw_grid_states(opponent_grid_position, opponent.board.grid, player.selected_case) # where opponent got hit
 
         # texts
         turn_text = TEXTS.GAME_PLAYER_ROUND_1 + str(turn)
@@ -263,7 +263,7 @@ class UI:
         self.draw_ships_on_grid(player_grid_position, human_player.ships, -1, False) # player's ships
 
         # cases' state
-        self.draw_grid_states(player_grid_position, human_player.board.grid, Vector2(-1,-1)) # player's grid state
+        self.draw_grid_states(player_grid_position, human_player.board.grid, ai.player.selected_case) # player's grid state
 
         # texts
         turn_text = TEXTS.AI_ROUND_1 + str(turn) + TEXTS.AI_ROUND_2
@@ -566,15 +566,25 @@ class UI:
         self.screen.blit(title_2_surface,title_2_rect)
     
     def draw_title_ship(self, vertical_start, width, height): # doesn't includes it's buttons
-        
+        ship_color = COLORS.SINKED_BOAT_INSIDE_COLOR
+
         # draw top triangle
-        a=1 #TODO
+        triangle_height = 2*CASE_DIMENSION
+        triangle_A_point_1 = Vector2(13*CASE_DIMENSION, vertical_start*CASE_DIMENSION)
+        triangle_A_point_2 = Vector2(13*CASE_DIMENSION - (width*CASE_DIMENSION)/2 -0.2*CASE_DIMENSION, vertical_start*CASE_DIMENSION + triangle_height)
+        triangle_A_point_3 = Vector2(triangle_A_point_2.x + (width+0.4)*CASE_DIMENSION-1, vertical_start*CASE_DIMENSION + triangle_height)
+        pygame.draw.polygon(self.screen, ship_color,[triangle_A_point_1,triangle_A_point_2,triangle_A_point_3])
 
         # draw middle rectangle
-        a=1 #TODO
+        rect_topleft = triangle_A_point_2
+        middle_rect = pygame.Rect(rect_topleft.x, rect_topleft.y, (width+0.4)*CASE_DIMENSION, (height)*CASE_DIMENSION-2*triangle_height)
+        pygame.draw.rect(self.screen, ship_color, middle_rect)
 
         # draw bottom triangle
-        a=1 #TODO
+        triangle_B_point_1 = Vector2(13*CASE_DIMENSION, vertical_start*CASE_DIMENSION + height*CASE_DIMENSION)
+        triangle_B_point_2 = Vector2(13*CASE_DIMENSION - (width*CASE_DIMENSION)/2 -0.2*CASE_DIMENSION, vertical_start*CASE_DIMENSION - triangle_height + height*CASE_DIMENSION)
+        triangle_B_point_3 = Vector2(triangle_B_point_2.x + (width+0.4)*CASE_DIMENSION-1, vertical_start*CASE_DIMENSION - triangle_height+ height*CASE_DIMENSION)
+        pygame.draw.polygon(self.screen, ship_color,[triangle_B_point_1,triangle_B_point_2,triangle_B_point_3])
 
     def draw_title_button(self, lines, vertical_position, width, btn_id):
         btn_font = pygame.font.Font(TEXTS.FONT, 40)
