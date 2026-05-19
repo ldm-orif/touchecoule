@@ -64,9 +64,9 @@ class AI:
                 if opponent.nb_ship_unsunk() <= 0: # check if opponent still has boats to sink
                     self.turn_finished = True
                     ai_logs_won = AI_LOGS_TEXT.END_1B
-                    self.add_log(str(ai_logs_won))
+                    self.add_log(ai_logs_won.value)
                     ai_log_turn_done = AI_LOGS_TEXT.END_2
-                    self.add_log(str(ai_log_turn_done))
+                    self.add_log(ai_log_turn_done.value)
                 else:
                     last_shot = self.last_hit
                     aimed_case = self.get_random_valid_case(CASE_STATE.CLEAN,opponent)
@@ -134,7 +134,7 @@ class AI:
                             case Hit_direction.RIGHT:
                                 aimed_case = Vector2(last_shot.x+1,last_shot.y)
                     
-                    ai_log_aiming = str(AI_LOGS_TEXT.AIM) + str(AI_LOGS_TEXT.LINE) + str(aimed_case.x) + str(AI_LOGS_TEXT.COLUMN) + str(aimed_case.y)
+                    ai_log_aiming = AI_LOGS_TEXT.AIM.value + AI_LOGS_TEXT.LINE.value + str(int(aimed_case.x)) + AI_LOGS_TEXT.COLUMN.value + str(int(aimed_case.y))
                     self.add_log(str(ai_log_aiming))
                     self.player.selected_case = aimed_case
                     
@@ -143,27 +143,27 @@ class AI:
                     nb_unsunk_after = opponent.nb_ship_unsunk()
                     if hit:
                         if nb_unsunk_before > nb_unsunk_after: # if there are more sunk ship than before, we have sunk one
-                            ai_log_sunk = str(AI_LOGS_TEXT.SINK_1) + str(nb_unsunk_after) + str(AI_LOGS_TEXT.SINK_2)
-                            self.add_log(str(ai_log_sunk))
+                            ai_log_sunk = AI_LOGS_TEXT.SINK_1.value + str(nb_unsunk_after) + AI_LOGS_TEXT.SINK_2.value
+                            self.add_log(ai_log_sunk)
                             self.last_hit = Vector2(-1,-1)
                             self.last_hit_direction = Hit_direction.UNKNOWN
                         else: # if the number of unsunk ship is the same, we "only" hit one
-                            ai_log_hit = AI_LOGS_TEXT.HIT
-                            self.add_log(str(ai_log_hit))
+                            ai_log_hit = AI_LOGS_TEXT.HIT.value
+                            self.add_log(ai_log_hit)
                             self.last_hit = aimed_case
                             self.last_hit_direction = new_dicrection
 
                     else: # if missed
                         ai_log_missed = AI_LOGS_TEXT.MISS
-                        self.add_log(str(ai_log_missed))
+                        self.add_log(ai_log_missed.value)
                         self.last_hit_direction = Hit_direction.UNKNOWN
 
             else: # if can't shoot: end turn
                 self.turn_finished = True
                 ai_logs_turn = AI_LOGS_TEXT.END_1A
-                self.add_log(str(ai_logs_turn))
+                self.add_log(ai_logs_turn.value)
                 ai_log_turn_done = AI_LOGS_TEXT.END_2
-                self.add_log(str(ai_log_turn_done))
+                self.add_log(ai_log_turn_done.value)
         
 
     def get_random_valid_case(self, valid_state, opponent):
