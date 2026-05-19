@@ -14,6 +14,20 @@ class UI:
         self.current_interactible_grid_cases = [[]] # is double list than contains the rect
         self.current_interactible_ships = [] # single list containing the tuple (rect,variant)
         self.screen = surface
+        self.load_icons() # list with Tuple (UI_ICONS, source)
+
+    def load_icons(self): # convert to alpha all icons so they don't have to be sommuned in the runtime
+        self.launch_on = pygame.transform.smoothscale(pygame.image.load(ICONS.FOLDER + ICONS.LAUNCH_ON).convert_alpha(), (ICON_DIMENSION, ICON_DIMENSION))
+        self.launch_off = pygame.transform.smoothscale(pygame.image.load(ICONS.FOLDER + ICONS.LAUNCH_OFF).convert_alpha(), (ICON_DIMENSION, ICON_DIMENSION))
+        self.selection_on = pygame.transform.smoothscale(pygame.image.load(ICONS.FOLDER + ICONS.SELECTION_ON).convert_alpha(), (ICON_DIMENSION, ICON_DIMENSION))
+        self.selection_off = pygame.transform.smoothscale(pygame.image.load(ICONS.FOLDER + ICONS.SELECTION_OFF).convert_alpha(), (ICON_DIMENSION, ICON_DIMENSION))
+        self.delete_on = pygame.transform.smoothscale(pygame.image.load(ICONS.FOLDER + ICONS.DELETE_ON).convert_alpha(), (ICON_DIMENSION, ICON_DIMENSION))
+        self.delete_off = pygame.transform.smoothscale(pygame.image.load(ICONS.FOLDER + ICONS.DELETE_OFF).convert_alpha(), (ICON_DIMENSION, ICON_DIMENSION))
+        self.rotate_left = pygame.transform.smoothscale(pygame.image.load(ICONS.FOLDER + ICONS.ROTATE_LEFT).convert_alpha(), (ICON_DIMENSION, ICON_DIMENSION))
+        self.rotate_right = pygame.transform.smoothscale(pygame.image.load(ICONS.FOLDER + ICONS.ROTATE_RIGHT).convert_alpha(), (ICON_DIMENSION, ICON_DIMENSION))
+        self.confirm_on = pygame.transform.smoothscale(pygame.image.load(ICONS.FOLDER + ICONS.CONFIRM_ON).convert_alpha(), (ICON_DIMENSION, ICON_DIMENSION))
+        self.confirm_off = pygame.transform.smoothscale(pygame.image.load(ICONS.FOLDER + ICONS.CONFIRM_OFF).convert_alpha(), (ICON_DIMENSION, ICON_DIMENSION))
+
 
     def draw_title(self):
         self.current_buttons = []
@@ -85,13 +99,13 @@ class UI:
         btn_height = 2
         btn_space_between = 0.5
 
-        rotate_left_btn_icon = ICONS.ROTATE_LEFT
-        select_btn_icon = ICONS.SELECTION_OFF
-        rotate_right_btn_icon = ICONS.ROTATE_RIGHT
-        delete_btn_icon = ICONS.DELETE_ON
+        rotate_left_btn_icon = self.rotate_left
+        select_btn_icon = self.selection_off
+        rotate_right_btn_icon = self.rotate_right
+        delete_btn_icon = self.delete_on
         if is_select_mode:
-            select_btn_icon = ICONS.SELECTION_ON
-            delete_btn_icon = ICONS.DELETE_OFF
+            select_btn_icon = self.selection_on
+            delete_btn_icon = self.delete_off
         
         btn_pad_pos = Vector2(1, GRID_SIZE+2)
         rotate_left_btn_pos = btn_pad_pos
@@ -104,13 +118,13 @@ class UI:
         self.draw_icon(rotate_right_btn_icon,rotate_right_btn_pos,btn_width,btn_height,False,BUTTONS.PLACEMENT_ROTATE_RIGHT)
         self.draw_icon(delete_btn_icon,delete_btn_pos,btn_width,btn_height,not is_select_mode,BUTTONS.PLACEMENT_DELETION)
 
-        confirm_btn_icon = ICONS.CONFIRM_OFF
+        confirm_btn_icon = self.confirm_off
         all_ships_placed = True
         for ship in player.ships:
             if ship.position.x < 0 or ship.position.y < 0:
                 all_ships_placed = False
                 break
-        if all_ships_placed: confirm_btn_icon = ICONS.CONFIRM_ON
+        if all_ships_placed: confirm_btn_icon = self.confirm_on
         confirm_btn_pos = Vector2(info_pos.x+info_width-btn_width, info_player_pos.y)
         self.draw_icon(confirm_btn_icon,confirm_btn_pos,btn_width,btn_height,all_ships_placed,BUTTONS.PLACEMENT_CONTINUE)
 
@@ -191,8 +205,8 @@ class UI:
 
         # button with icon
 
-        shoot_icon = ICONS.LAUNCH_OFF
-        if has_shot_left: shoot_icon = ICONS.LAUNCH_ON
+        shoot_icon = self.launch_off
+        if has_shot_left: shoot_icon = self.launch_on
         shoot_width = 3
         shoot_position = Vector2(opponent_grid_position.x, opponent_grid_position.y + GRID_SIZE + 1)
         self.draw_icon(shoot_icon, shoot_position, shoot_width, btn_height, False, BUTTONS.GAME_LAUNCH) # "shoot" button
@@ -454,10 +468,8 @@ class UI:
         else:
             pygame.draw.rect(self.screen,COLORS.GRAPHIC_BACKGROUND_COLOR,background_rect)
 
-        icon_surface = pygame.image.load(ICONS.FOLDER + icon) # TODO CHECK METHOD SINCE IT SEEMS THAT WE CAN ONLY SHOW ONE SPECIFIC SVG
-        icon_surface = pygame.transform.smoothscale(icon_surface, (ICON_DIMENSION, ICON_DIMENSION))
-        icon_rect = icon_surface.get_rect(center= ((position.x+(0.5*dimension_x)+0.3)*CASE_DIMENSION, (position.y+(0.5*dimension_y)+0.3)*CASE_DIMENSION))
-        self.screen.blit(icon_surface, icon_rect)
+        icon_rect = icon.get_rect(center= ((position.x+(0.5*dimension_x))*CASE_DIMENSION, (position.y+(0.5*dimension_y))*CASE_DIMENSION))
+        self.screen.blit(icon, icon_rect)
 
     def draw_text(self, text, position, dimension_x, dimension_y, interactible, btn_id): # text and buttons
         background_rect = pygame.Rect(position.x*CASE_DIMENSION, position.y*CASE_DIMENSION, dimension_x*CASE_DIMENSION, dimension_y*CASE_DIMENSION)
@@ -470,6 +482,7 @@ class UI:
         text_rect = text_surface.get_rect(center= ((position.x+(0.5*dimension_x))*CASE_DIMENSION, (position.y+(0.5*dimension_y))*CASE_DIMENSION))
         self.screen.blit(text_surface,text_rect)
     
+
     # complex elements that are only used in one screen respectively :
 
     def draw_logs(self, logs, position, dimension_x, dimension_y): # specific to AI logs

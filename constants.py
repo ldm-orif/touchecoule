@@ -22,7 +22,7 @@ GREEN = (182,255,0)
 SCREEN_WIDTH = 1024 # game windows' width
 SCREEN_HEIGHT = 768 # game windows' height
 CASE_DIMENSION = 40 # width and height of each case in grids
-ICON_DIMENSION = 2*CASE_DIMENSION # width and height of icons
+ICON_DIMENSION = 2*CASE_DIMENSION-CASE_DIMENSION/3 # width and height of icons
 OUTLINE_THICKNESS = 5 # ships' and selected case outline
 
 #TODO HERE: ADD USUAL TEXT FONT AND SIZE (AND THE IA LOG VARIANT IF IT IS NEEDED)
@@ -85,23 +85,17 @@ class UI_TEXT:
 class UI_ICONS:
     FOLDER = 'SVG/'
 
-    # case states
-    CASE_HIT = "case-hit.svg"
-    CASE_MISS = "case-miss.svg"
-    CASE_SELECTED = "case-selected.svg"
-    CASE_SUNK = "case-sunk.svg"
-    
     # buttons
-    LAUNCH_ON = "launch.svg"
-    LAUNCH_OFF = "no-launch.svg"
-    SELECTION_ON = "selection-active.svg"
-    SELECTION_OFF = "selection.svg"
-    DELETE_ON = "delete-active.svg"
-    DELETE_OFF = "delete.svg"
-    ROTATE_LEFT = "rotate-left.svg"
-    ROTATE_RIGHT = "rotate-right.svg"
-    CONFIRM_ON = "confirmation-active.svg"
-    CONFIRM_OFF = "confirmation.svg"
+    LAUNCH_ON = "launch.png"
+    LAUNCH_OFF = "no-launch.png"
+    SELECTION_ON = "selection-active.png"
+    SELECTION_OFF = "selection.png"
+    DELETE_ON = "delete-active.png"
+    DELETE_OFF = "delete.png"
+    ROTATE_LEFT = "rotate-left.png"
+    ROTATE_RIGHT = "rotate-right.png"
+    CONFIRM_ON = "confirmation-active.png"
+    CONFIRM_OFF = "confirmation.png"
 
 
 class UI_COLORS:
