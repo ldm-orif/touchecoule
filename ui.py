@@ -287,12 +287,11 @@ class UI:
         # button
         btn_height = 2
 
-        end_ai_turn_text = "" #TODO: DEFINE CONDITION TO ALLOW TO CONTINUE, LEFT AS 'TRUE' AS PLACEHOLDER
-        if True : end_ai_turn_text = TEXTS.AI_CONTINUE
-        else: end_ai_turn_text = TEXTS.AI_WAIT
+        end_ai_turn_text = TEXTS.AI_WAIT
+        if ai.turn_finished : end_ai_turn_text = TEXTS.AI_CONTINUE
         end_turn_text_width = 5
         end_turn_text_position = Vector2(ai_logs_position.x + GRID_SIZE - end_turn_text_width, ai_logs_position.y + GRID_SIZE +1)
-        self.draw_text(end_ai_turn_text, end_turn_text_position, end_turn_text_width, btn_height, True, BUTTONS.AI_CONTINUE) # "Terminer le tour"
+        self.draw_text(end_ai_turn_text, end_turn_text_position, end_turn_text_width, btn_height, ai.turn_finished, BUTTONS.AI_CONTINUE) # "Terminer le tour"
 
         pygame.display.flip() # updates the entire display
         
@@ -489,9 +488,16 @@ class UI:
         background_rect = pygame.Rect(position.x*CASE_DIMENSION,position.y*CASE_DIMENSION,dimension_x*CASE_DIMENSION,dimension_y*CASE_DIMENSION)
         pygame.draw.rect(self.screen,COLORS.AI_LOGS_BACKGROUND_COLOR,background_rect)
 
-        logs_font = pygame.font.Font(TEXTS.FONT, 20)
+        text_size = 20
+        logs_font = pygame.font.Font(TEXTS.FONT, text_size)
+        text_color = COLORS.AI_LOGS_TEXT_COLOR
+        text_inline = CASE_DIMENSION/4
 
-        #TODO IF LINE LENGTH > LINE LIMIT, SPLIT AT LIMIT
+        for line in range(len(logs)):
+            log = logs[line]
+            text_surface = logs_font.render(log, True, text_color)
+            text_rect = text_surface.get_rect(topleft = (position.x*CASE_DIMENSION+text_inline,position.y*CASE_DIMENSION+text_inline+(text_inline+text_size)*line))
+            self.screen.blit(text_surface,text_rect)
 
     def draw_ship_placement_board(self, ships, position, width, height, selected_ship):
         background_rect = pygame.Rect(position.x*CASE_DIMENSION,position.y*CASE_DIMENSION,width*CASE_DIMENSION,height*CASE_DIMENSION)
