@@ -14,7 +14,7 @@ class UI:
         self.current_interactible_grid_cases = [[]] # is double list than contains the rect
         self.current_interactible_ships = [] # single list containing the tuple (rect,variant)
         self.screen = surface
-        self.load_icons() # list with Tuple (UI_ICONS, source)
+        self.load_icons()
 
     def load_icons(self): # convert to alpha all icons so they don't have to be sommuned in the runtime
         self.launch_on = pygame.transform.smoothscale(pygame.image.load(ICONS.FOLDER + ICONS.LAUNCH_ON).convert_alpha(), (ICON_DIMENSION, ICON_DIMENSION))
