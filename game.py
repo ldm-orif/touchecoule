@@ -205,7 +205,7 @@ class GAME:
 
         self.player_1 = PLAYER() # Player that always start first, always human player
         self.player_2 = PLAYER() # Second player, whose used by the IA in PVC
-        self.ai = AI(self.player_2) # Behavior of the Computer player during PVC
+        self.ai = AI(self.player_2,self) # Behavior of the Computer player during PVC
 
 
     # ship actions
