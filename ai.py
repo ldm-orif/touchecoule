@@ -2,15 +2,26 @@
 # CREATION : 30.04.2026
 # Contains the computer opponent's data and logic
 
-from constants import SHIP_PER_PLAYER, ORIENTATION, GRID_SIZE, IA_LOG_LINE_LIMIT, IA_LOG_CHARACTER_PER_LINE_LIMIT
-from player import PLAYER
+from enum import Enum
+from constants import SHIP_PER_PLAYER, ORIENTATION, GRID_SIZE, IA_LOG_LINE_LIMIT, IA_LOG_CHARACTER_PER_LINE_LIMIT, AI_LOGS_TEXT, CASE_STATE
 from random import randint
 from pygame import Vector2
 
+class Hit_direction(Enum):
+    UNKNOWN = 0
+    UP = 1
+    DOWN = 2
+    LEFT = 3
+    RIGHT = 4
+
 class AI:
-    def __init__(self, player):
-        self.player = PLAYER()
-        self.logs = 1 #TODO ADD STRING LIMIT HERE
+    def __init__(self, player, game):
+        self.player = player
+        self.logs = []
+        self.last_hit = Vector2(-1,-1) # last successful hit (put to [-1;-1] if has sunk)
+        self.last_hit_direction = Hit_direction.UNKNOWN
+        self.game = game
+        self.turn_finished = False
 
     def add_log(self, text):
         a=1

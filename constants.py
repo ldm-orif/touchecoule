@@ -177,10 +177,13 @@ class BUTTONS(Enum):
 
 class AI_LOGS_TEXT(Enum):
     START = "LOGS DES TIRS DE L'IA"
-    AIM = "L'IA TIRE SUR LA CASE"
+    AIM = "L'IA TIRE SUR LA CASE "
+    LINE = "L"
+    COLUMN = "C"
     HIT = "TOUCHÉ !"
     MISS = "LOUPÉ !"
     SINK_1 = "COULÉ ! IL VOUS RESTE "
     SINK_2 = " BATEAUX"
-    END_1 = "L'IA A TERMIN´3 SON TOUR,"
+    END_1A = "L'IA A TERMINÉ SON TOUR,"
+    END_1B = "L'IA A GAGNÉE,"
     END_2 = "APPUYEZ SUR 'CONTINUER'"

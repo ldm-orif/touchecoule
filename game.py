@@ -31,7 +31,7 @@ class GAME:
         self.player_1 = PLAYER() # Player that always start first, always human player
         self.player_2 = PLAYER() # Second player, whose used by the IA in PVC
         self.ui = UI(surface) # UI of the game, also referred to as "IHM"
-        self.ai = AI(self.player_2) # Behavior of the Computer player during PVC
+        self.ai = AI(self.player_2,self) # Behavior of the Computer player during PVC
 
     def ai_act(self): # Called to indicate the AI can make the next step (equivalant of a line in it's log)
         a=1 #TODO CALL AI AND TELL IT TO ACT
@@ -202,6 +202,7 @@ class GAME:
 
         self.player_1 = PLAYER() # Player that always start first, always human player
         self.player_2 = PLAYER() # Second player, whose used by the IA in PVC
+        self.ai = AI(self.player_2) # Behavior of the Computer player during PVC
 
 
     # ship actions
