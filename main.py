@@ -12,7 +12,7 @@ screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 clock = pygame.time.Clock()
 
 AI_UPDATE = pygame.USEREVENT
-pygame.time.set_timer(AI_UPDATE,1000)
+pygame.time.set_timer(AI_UPDATE,2000)
 
 game = GAME(screen)
 
