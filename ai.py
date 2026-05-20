@@ -25,7 +25,11 @@ class AI:
 
     def add_log(self, text):
         if self.logs.__len__() >= IA_LOG_LINE_LIMIT: # if the number of maximum lines is about or is exceeded, remove the first one and escalade every line.
-            self.logs.pop[0]
+            new_logs = []
+            for i in range(len(self.logs)):
+                if not i == 0:
+                    new_logs.append(self.logs[i])
+            self.logs = new_logs
         fixed_text = text
         if text.__len__() > IA_LOG_CHARACTER_PER_LINE_LIMIT:
             fixed_text = text[:IA_LOG_CHARACTER_PER_LINE_LIMIT - 3] + "..."
